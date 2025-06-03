@@ -14,7 +14,7 @@ def load_data():
 df = load_data()
 
 # === SECTION 1: Career Path Sunburst ===
-with st.expander("🌞 Career Path Sunburst", expanded=True):
+st.subheader("🌞 Career Path Sunburst")
     sunburst_df = df.copy()
 
     def categorize_salary(salary):
@@ -113,7 +113,7 @@ with st.expander("🌞 Career Path Sunburst", expanded=True):
         """)
 
 # === SECTION 2: Job Level vs Age (Bar + Area) ===
-with st.expander("📊 Entrepreneurship by Age & Job Level", expanded=True):
+st.subheader("📊 Entrepreneurship by Age & Job Level")
     job_df = df[df['Entrepreneurship'].isin(['Yes', 'No'])].copy()
     grouped = job_df.groupby(['Current_Job_Level', 'Age', 'Entrepreneurship']).size().reset_index(name='Count')
     grouped['Percentage'] = grouped.groupby(['Current_Job_Level', 'Age'])['Count'].transform(lambda x: x / x.sum())
@@ -185,7 +185,7 @@ with st.expander("📊 Entrepreneurship by Age & Job Level", expanded=True):
 
 
 # === SECTION 3: GPA vs. Salary Scatter Plot ===
-with st.expander("🎓 GPA vs. Starting Salary", expanded=True):
+st.subheader("🎓 GPA vs. Starting Salary")
     df["GPA_Group"] = pd.cut(df["University_GPA"], bins=[2.0, 2.5, 3.0, 3.5, 4.0],
                              labels=["2.0–2.5", "2.5–3.0", "3.0–3.5", "3.5–4.0"], include_lowest=True)
 
@@ -208,7 +208,7 @@ with st.expander("🎓 GPA vs. Starting Salary", expanded=True):
     st.plotly_chart(fig3, use_container_width=True)
 
 # === SECTION 4: Work-Life Balance Line Chart ===
-with st.expander("⚖️ Work-Life Balance by Promotion Time", expanded=True):
+st.subheader("⚖️ Work-Life Balance by Promotion Time")
     avg_balance = df.groupby(['Current_Job_Level', 'Years_to_Promotion'])['Work_Life_Balance'].mean().reset_index()
     job_levels_order = ['Entry', 'Mid', 'Senior', 'Executive']
     avg_balance['Current_Job_Level'] = pd.Categorical(avg_balance['Current_Job_Level'],
